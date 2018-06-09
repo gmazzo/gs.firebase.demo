@@ -1,6 +1,26 @@
 <resources>
+
     <string name="app_name">Firebase Demo</string>
+    <string name="facebook_app_id">166745810847472</string>
+    <string name="fb_login_protocol_scheme">fb166745810847472</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string-array name="label_login_labels">
+        <item>Social networks</item>
+        <item>By phone</item>
+        <item>By email</item>
+    </string-array>
+
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_login">Login</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_validation_code">Validation Code</string>
+    <string name="label_request_code">Request Code</string>
+    <string name="label_validate_code">Validate Code</string>
+    <string name="err_field_required">This field is required</string>
+
 </resources>
