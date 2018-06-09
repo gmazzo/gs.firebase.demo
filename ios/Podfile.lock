@@ -1,4 +1,14 @@
 PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.33.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.33.0):
+    - FBSDKCoreKit
   - Firebase/Core (5.2.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.0.1)
@@ -23,9 +33,13 @@ PODS:
   - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
+  - FBSDKLoginKit
   - Firebase/Core
 
 SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
+  FBSDKLoginKit: 88cb456349cfb3b554427ce4f8b43729d85dfb40
   Firebase: 25ed0412036d7d008568d1fb4d2e9d81ea8a0a2c
   FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
   FirebaseCore: a3c87242451633fff8490183898075ce77d168d2
@@ -33,6 +47,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 82498056c21e242fe5d17e64bda10cc538dbe3a3
+PODFILE CHECKSUM: 469128dbcc6717ccf5bd612c462ea1cf820a2185
 
 COCOAPODS: 1.4.0

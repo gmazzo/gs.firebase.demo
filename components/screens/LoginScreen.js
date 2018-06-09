@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Button, StyleSheet, Text, View} from "react-native";
+import Toast from "react-native-easy-toast";
+import {AccessToken, LoginButton} from "react-native-fbsdk";
 
 type Props = {};
 export default class LoginScreen extends Component<Props> {
@@ -26,28 +28,45 @@ export default class LoginScreen extends Component<Props> {
                     <Button title="Google" onPress={this.loginWithGoogle}/>
                 </View>
                 <View style={styles.button}>
-                    <Button title="Facebook" onPress={this.loginWithFacebook}/>
+                    <LoginButton
+                        publishPermissions={["public_profile", "email"]}
+                        onLoginFinished={this.loginWithFacebook}/>
                 </View>
                 <View style={styles.button}>
                     <Button title="Github" onPress={this.loginWithGithub}/>
                 </View>
+                <Toast ref="toast"/>
             </View>
         );
     }
 
     loginByEmail() {
+        this.refs.toast.show('Not implemented!');
     }
 
     loginByPhone() {
+        this.refs.toast.show('Not implemented!');
     }
 
     loginWithGoogle() {
+        this.refs.toast.show('Not implemented!');
     }
 
-    loginWithFacebook() {
+    loginWithFacebook(error, result) {
+        if (error) {
+            this.refs.toast.show(result.error);
+
+        } else {
+            AccessToken.getCurrentAccessToken().then(token => {
+                const credential = new firebase.auth.FacebookAuthProvider.credential(token);
+
+                firebase.auth().signInWithCredential(credential)
+            })
+        }
     }
 
     loginWithGithub() {
+        this.refs.toast.show('Not implemented!');
     }
 
 }

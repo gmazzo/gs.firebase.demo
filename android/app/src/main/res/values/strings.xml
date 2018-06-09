@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Firebase React Native Demo</string>
+
+    <string name="facebook_app_id">166745810847472</string>
 </resources>

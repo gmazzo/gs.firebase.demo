@@ -1,5 +1,7 @@
 package gs.firebase.reactnative.demo;
 
+import android.content.Intent;
+
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -12,4 +14,12 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "app";
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        MainApplication.get(this).mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
