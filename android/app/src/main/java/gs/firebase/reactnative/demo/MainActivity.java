@@ -1,4 +1,4 @@
-package com.app;
+package gs.firebase.reactnative.demo;
 
 import com.facebook.react.ReactActivity;
 
