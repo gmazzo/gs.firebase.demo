@@ -17,4 +17,8 @@
         <item name="elevation">@dimen/margin</item>
     </style>
 
+    <style name="ThemeOverlay.GitHub" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/github</item>
+    </style>
+
 </resources>

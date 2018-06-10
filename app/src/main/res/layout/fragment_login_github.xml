@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/github"
+    android:theme="@style/ThemeOverlay.GitHub"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/label_login_github"
+    android:drawableLeft="@drawable/ic_github"
+    android:drawableStart="@drawable/ic_github"
+    android:drawablePadding="@dimen/margin"
+    android:textStyle="normal"
+    android:textAllCaps="false" />

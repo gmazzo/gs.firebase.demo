@@ -14,6 +14,7 @@
         <item>By email</item>
     </string-array>
 
+    <string name="label_login_github">Login with <b>Github</b></string>
     <string name="label_email">Email</string>
     <string name="label_password">Password</string>
     <string name="label_login">Login</string>
