@@ -37,15 +37,12 @@ class ToolbarFragment : Fragment(), FirebaseAuth.AuthStateListener, Target {
 
         toolbar.title = user?.displayName ?: getString(R.string.app_name)
 
-        if (user != null) {
-            toolbar.title = user.displayName
-
+        if (user?.photoUrl != null) {
             Picasso.get().load(user.photoUrl)
                     .resizeDimen(R.dimen.icon_size, R.dimen.icon_size)
                     .into(this)
 
         } else {
-            toolbar.title = getString(R.string.app_name)
             toolbar.navigationIcon = null
         }
     }
