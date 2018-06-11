@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
+import gs.firebase.demo.models.Chat
 import gs.firebase.demo.models.User
 
 fun ImageView.rounded() =
@@ -48,12 +50,22 @@ fun Throwable.report(context: Context) {
     localizedMessage?.toast(context)
 }
 
+val FirebaseDatabase.usersCollection
+    get() =
+        getReference("users")
+
+val FirebaseDatabase.chatCollection
+    get() =
+        getReference("chat")
+
 fun FirebaseUser.toModel() = User(
         id = uid,
         name = displayName,
         email = email,
         photoUrl = photoUrl?.toString())
 
-val FirebaseDatabase.usersCollection
-    get() =
-        getReference("users")
+fun DataSnapshot.toUser() =
+        getValue(User::class.java)!!.also { it.id = key }
+
+fun DataSnapshot.toChat() =
+        getValue(Chat::class.java)!!.also { it.id = key }

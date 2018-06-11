@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         setContentView(R.layout.activity_main)
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         FirebaseAuth.getInstance().addAuthStateListener(this)
     }
 

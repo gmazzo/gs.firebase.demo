@@ -1,38 +1,28 @@
 package gs.firebase.demo.navigation.users
 
-import android.support.v7.widget.RecyclerView
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.FirebaseDatabase
+import gs.firebase.demo.FirebaseAdapter
 import gs.firebase.demo.R
 import gs.firebase.demo.models.User
-import kotlinx.android.synthetic.main.item_user.view.*
+import gs.firebase.demo.toUser
+import gs.firebase.demo.usersCollection
 
-class UsersAdapter(private val items: List<User>) : RecyclerView.Adapter<UsersViewHolder>() {
-
-    init {
-        setHasStableIds(true)
-    }
-
-    override fun getItemCount() = items.size
-
-    override fun getItemId(position: Int) = items[position].id!!.hashCode().toLong()
+class UsersAdapter(context: Context) : FirebaseAdapter<User, UsersViewHolder>(
+        context,
+        FirebaseDatabase.getInstance().usersCollection,
+        DataSnapshot::toUser,
+        { it.id!! }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             UsersViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_user, parent, false))
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        val item = items[position]
-
-        holder.apply {
-            itemView.name.text = item.name
-            itemView.email.text = item.email
-
-            Picasso.get()
-                    .load(item.photoUrl)
-                    .into(itemView.photo, this)
-        }
+        holder.item = getItem(position)
     }
 
 }

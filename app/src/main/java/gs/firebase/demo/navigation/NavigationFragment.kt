@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import gs.firebase.demo.R
+import gs.firebase.demo.navigation.chat.ChatFragment
 import gs.firebase.demo.navigation.profile.ProfileFragment
 import gs.firebase.demo.navigation.users.UsersFragment
 import kotlinx.android.synthetic.main.fragment_navigation.*
@@ -27,6 +28,7 @@ class NavigationFragment : Fragment(), BottomNavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragment = when (item.itemId) {
             R.id.users -> UsersFragment()
+            R.id.chat -> ChatFragment()
             R.id.profile -> ProfileFragment()
             else -> throw IllegalArgumentException("unknown menu: $item")
         }

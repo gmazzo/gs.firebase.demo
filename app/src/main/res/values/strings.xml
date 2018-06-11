@@ -23,6 +23,9 @@
     <string name="title_users">Users</string>
     <string name="title_chat">Chat</string>
     <string name="title_profile">Profile</string>
-    <string name="title_logout">Logout</string>
+    <string name="action_logout">Logout</string>
+
+    <string name="label_message">Message</string>
+
 
 </resources>
