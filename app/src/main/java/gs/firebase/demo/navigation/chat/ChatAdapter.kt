@@ -16,19 +16,23 @@ class ChatAdapter(context: Context) : FirebaseAdapter<Chat, ChatViewHolder>(
         FirebaseDatabase.getInstance().chatCollection,
         DataSnapshot::toChat,
         { it.id!! }) {
+    private var lastTimestamp = System.currentTimeMillis()
 
     override fun getItemViewType(position: Int) =
             if (position == 0 || getItem(position).userId != getItem(position - 1).userId)
                 TYPE_FULL else TYPE_SINGLE
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ChatViewHolder(
-                    LayoutInflater.from(parent.context)
-                            .inflate(R.layout.item_chat, parent, false),
-                    viewType == TYPE_SINGLE)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChatViewHolder(
+            view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_chat, parent, false),
+            single = viewType == TYPE_SINGLE)
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        holder.item = getItem(position)
+        val item = getItem(position)
+
+        holder.isNew = item.timestamp!! > lastTimestamp
+        holder.item = item
+        lastTimestamp = Math.max(lastTimestamp, item.timestamp!!)
     }
 
     companion object {

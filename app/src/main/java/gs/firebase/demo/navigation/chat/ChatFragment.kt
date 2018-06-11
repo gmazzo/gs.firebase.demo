@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import gs.firebase.demo.BuildConfig
 import gs.firebase.demo.R
 import gs.firebase.demo.chatCollection
 import gs.firebase.demo.models.Chat
@@ -35,6 +37,19 @@ class ChatFragment : Fragment(), TextWatcher {
                             userId = FirebaseAuth.getInstance().currentUser!!.uid,
                             timestamp = System.currentTimeMillis(),
                             message = text.toString()))
+        }
+
+        sendNudge.setOnClickListener {
+            FirebaseDatabase.getInstance().chatCollection
+                    .push()
+                    .setValue(Chat(
+                            userId = FirebaseAuth.getInstance().currentUser!!.uid,
+                            timestamp = System.currentTimeMillis(),
+                            nudge = true))
+        }
+
+        FirebaseRemoteConfig.getInstance().apply {
+            sendNudge.visibility = if (getBoolean(BuildConfig.TOGGLE_NUDGE_ENABLED)) View.VISIBLE else View.GONE
         }
     }
 

@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import gs.firebase.demo.login.LoginFragment
 import gs.firebase.demo.navigation.NavigationFragment
+
 
 class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
@@ -14,6 +17,13 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         setContentView(R.layout.activity_main)
 
+        FirebaseRemoteConfig.getInstance().apply {
+            setConfigSettings(FirebaseRemoteConfigSettings.Builder()
+                    .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                    .build())
+            setDefaults(mapOf(BuildConfig.TOGGLE_NUDGE_ENABLED to false))
+            fetch().addOnCompleteListener { activateFetched() }
+        }
         FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         FirebaseAuth.getInstance().addAuthStateListener(this)
     }

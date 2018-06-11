@@ -41,6 +41,9 @@ val TextInputLayout.text: String?
 fun RecyclerView.decorate() =
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
+val RecyclerView.ViewHolder.context
+    get() = itemView.context!!
+
 fun String.toast(context: Context, duration: Int = Toast.LENGTH_SHORT) =
         Toast.makeText(context, this, duration).show()
 

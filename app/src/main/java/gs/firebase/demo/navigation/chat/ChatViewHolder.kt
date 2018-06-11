@@ -1,5 +1,6 @@
 package gs.firebase.demo.navigation.chat
 
+import android.media.MediaPlayer
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.view.View
@@ -8,16 +9,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
+import gs.firebase.demo.*
 import gs.firebase.demo.models.Chat
-import gs.firebase.demo.report
-import gs.firebase.demo.rounded
-import gs.firebase.demo.toUser
-import gs.firebase.demo.usersCollection
 import kotlinx.android.synthetic.main.item_chat.view.*
 import java.lang.Exception
 
 class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view), Callback {
+    var isNew: Boolean = false
     var item: Chat? = null
         set(value) {
             field = value!!
@@ -40,16 +38,14 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
     private fun bindItem(item: Chat) {
         itemView.name.text = item.user?.name
         itemView.timestamp.text = DateUtils.formatDateTime(itemView.context, item.timestamp!!, 0)
-        itemView.message.text = item.message
+        itemView.message.text = if (!item.nudge) item.message else
+            context.getText(R.string.message_nudge)
 
-        itemView.photo?.also { imageView ->
-            val user = item.user
-
-            if (user != null) {
-                Picasso.get()
-                        .load(user.photoUrl)
-                        .into(imageView, this)
-            }
+        if (isNew && item.nudge) {
+            isNew = false
+            
+            MediaPlayer.create(context, R.raw.nudge).start()
+            // TODO shake screen
         }
     }
 
