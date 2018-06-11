@@ -12,7 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import gs.firebase.demo.R
-import gs.firebase.demo.toast
+import gs.firebase.demo.report
 import kotlinx.android.synthetic.main.fragment_login_google.*
 
 
@@ -50,11 +50,7 @@ class GoogleLoginFragment : Fragment() {
                 FirebaseAuth.getInstance().signInWithCredential(credential)
 
             } else {
-                result.exception?.apply {
-                    printStackTrace()
-
-                    localizedMessage.toast(context!!)
-                }
+                result.exception?.report(context!!)
             }
         }
     }

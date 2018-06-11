@@ -4,10 +4,6 @@
     <string name="facebook_app_id">166745810847472</string>
     <string name="fb_login_protocol_scheme">fb166745810847472</string>
 
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     <string-array name="label_login_labels">
         <item>Social networks</item>
         <item>By phone</item>
@@ -23,5 +19,10 @@
     <string name="label_request_code">Request Code</string>
     <string name="label_validate_code">Validate Code</string>
     <string name="err_field_required">This field is required</string>
+
+    <string name="title_users">Users</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_logout">Logout</string>
 
 </resources>

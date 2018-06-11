@@ -13,7 +13,7 @@ import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import gs.firebase.demo.R
-import gs.firebase.demo.toast
+import gs.firebase.demo.report
 import kotlinx.android.synthetic.main.fragment_login_facebook.*
 
 class FacebookLoginFragment : Fragment(), FacebookCallback<LoginResult> {
@@ -42,12 +42,8 @@ class FacebookLoginFragment : Fragment(), FacebookCallback<LoginResult> {
     override fun onCancel() {
     }
 
-    override fun onError(error: FacebookException?) {
-        error?.apply {
-            printStackTrace()
-
-            localizedMessage.toast(context!!)
-        }
+    override fun onError(error: FacebookException) {
+        error.report(context!!)
     }
 
 }

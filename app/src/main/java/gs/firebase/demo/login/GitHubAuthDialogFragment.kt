@@ -14,7 +14,7 @@ import com.google.firebase.auth.GithubAuthProvider
 import com.google.gson.annotations.SerializedName
 import gs.firebase.demo.BuildConfig
 import gs.firebase.demo.R
-import gs.firebase.demo.toast
+import gs.firebase.demo.report
 import kotlinx.android.synthetic.main.fragment_auth.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,8 +70,7 @@ class GitHubAuthDialogFragment : DialogFragment(), Callback<GitHubAuthDialogFrag
 
         FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnFailureListener { e ->
-                    e.printStackTrace()
-                    e.localizedMessage.toast(context!!)
+                    e.report(context!!)
                 }
                 .addOnCompleteListener {
                     dismiss()
@@ -79,8 +78,7 @@ class GitHubAuthDialogFragment : DialogFragment(), Callback<GitHubAuthDialogFrag
     }
 
     override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
-        t.printStackTrace()
-        t.localizedMessage.toast(context!!)
+        t.report(context!!)
     }
 
     private interface GithubAPI {

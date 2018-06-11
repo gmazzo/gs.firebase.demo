@@ -48,7 +48,7 @@ class ToolbarFragment : Fragment(), FirebaseAuth.AuthStateListener, Target {
     }
 
     override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
-        toolbar.navigationIcon = RoundedBitmapDrawableFactory.create(resources, bitmap).apply {
+        toolbar?.navigationIcon = RoundedBitmapDrawableFactory.create(resources, bitmap).apply {
             isCircular = true
         }
     }
