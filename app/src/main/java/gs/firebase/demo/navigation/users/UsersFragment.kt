@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import gs.firebase.demo.R
 import gs.firebase.demo.decorate
+import gs.firebase.demo.withLoading
+import kotlinx.android.synthetic.main.fragment_toolbar.*
 import kotlinx.android.synthetic.main.fragment_users.*
 
 class UsersFragment : Fragment() {
@@ -19,7 +21,8 @@ class UsersFragment : Fragment() {
 
         recycler.apply {
             decorate()
-            adapter = UsersAdapter(context)
+
+            adapter = UsersAdapter(context).withLoading(activity!!.loading)
         }
     }
 

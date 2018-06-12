@@ -65,6 +65,13 @@ fun RecyclerView.scrollDownOnInsert() {
     }
 }
 
+fun <T : RecyclerView.Adapter<*>> T.withLoading(loadingView: View?): T {
+    registerAdapterDataObserver(LoadingAdapterObserver(
+            onChange = { loadingView?.visibility = if (it) View.VISIBLE else View.GONE }
+    ))
+    return this
+}
+
 val RecyclerView.ViewHolder.context
     get() = itemView.context!!
 

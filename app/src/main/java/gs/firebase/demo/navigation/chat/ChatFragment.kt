@@ -10,12 +10,10 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import gs.firebase.demo.BuildConfig
-import gs.firebase.demo.R
-import gs.firebase.demo.chatCollection
+import gs.firebase.demo.*
 import gs.firebase.demo.models.Chat
-import gs.firebase.demo.scrollDownOnInsert
 import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.android.synthetic.main.fragment_toolbar.*
 
 class ChatFragment : Fragment(), TextView.OnEditorActionListener {
 
@@ -23,7 +21,7 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
             inflater.inflate(R.layout.fragment_chat, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycler.adapter = ChatAdapter(context!!)
+        recycler.adapter = ChatAdapter(context!!).withLoading(activity!!.loading)
         recycler.scrollDownOnInsert()
 
         messageBox.setOnEditorActionListener(this)
