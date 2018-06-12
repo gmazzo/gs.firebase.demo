@@ -2,10 +2,13 @@ package gs.firebase.demo
 
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
+import android.support.annotation.IdRes
 import android.support.design.widget.TextInputLayout
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
@@ -13,6 +16,17 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.models.User
+
+fun View.ancestor(@IdRes withId: Int): View? =
+        ancestor { it.id == withId }
+
+fun View.ancestor(condition: (View) -> Boolean): View? = this.parent
+        ?.takeIf { it is View }
+        ?.let { (it as View).let { it.takeIf(condition) ?: it.ancestor(condition) } }
+
+fun View.shake() = AnimationUtils
+        .loadAnimation(context, R.anim.shake)
+        .also(this::startAnimation)!!
 
 fun ImageView.rounded() =
         drawable?.takeIf { it is BitmapDrawable }?.apply {
@@ -40,6 +54,16 @@ val TextInputLayout.text: String?
 
 fun RecyclerView.decorate() =
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+fun RecyclerView.scrollDownOnInsert() {
+    adapter.also {
+        it.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                smoothScrollToPosition(positionStart)
+            }
+        })
+    }
+}
 
 val RecyclerView.ViewHolder.context
     get() = itemView.context!!

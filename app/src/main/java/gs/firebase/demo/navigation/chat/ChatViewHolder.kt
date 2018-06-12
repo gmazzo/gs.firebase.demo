@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import gs.firebase.demo.*
 import gs.firebase.demo.models.Chat
 import kotlinx.android.synthetic.main.item_chat.view.*
@@ -41,11 +42,10 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
         itemView.message.text = if (!item.nudge) item.message else
             context.getText(R.string.message_nudge)
 
-        if (isNew && item.nudge) {
-            isNew = false
-            
-            MediaPlayer.create(context, R.raw.nudge).start()
-            // TODO shake screen
+        item.user?.also { user ->
+            Picasso.get()
+                    .load(user.photoUrl)
+                    .into(itemView.photo, this)
         }
     }
 
@@ -69,6 +69,15 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
                     }
 
                 })
+    }
+
+    fun onAttached() {
+        if (isNew && item?.nudge == true) {
+            isNew = false
+
+            MediaPlayer.create(context, R.raw.nudge).start()
+            itemView.ancestor(android.R.id.content)!!.shake()
+        }
     }
 
     override fun onSuccess() {

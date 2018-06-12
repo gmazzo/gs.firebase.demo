@@ -35,6 +35,12 @@ class ChatAdapter(context: Context) : FirebaseAdapter<Chat, ChatViewHolder>(
         lastTimestamp = Math.max(lastTimestamp, item.timestamp!!)
     }
 
+    override fun onViewAttachedToWindow(holder: ChatViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.onAttached()
+    }
+
     companion object {
 
         private const val TYPE_FULL = 0
