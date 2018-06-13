@@ -28,4 +28,15 @@
     <string name="label_message">Message</string>
     <string name="message_nudge"><i>Have just sent a Nudge!</i></string>
 
+    <string name="config_title_notifications">Notifications</string>
+    <string name="config_title_general">General</string>
+    <string name="config_title_new_users">New users</string>
+    <string name="config_title_new_messages">New messages</string>
+
+    <string name="fcm_topic_general">general</string>
+    <string name="fcm_topic_new_users">new_users</string>
+    <string name="fcm_topic_new_messages">new_messages</string>
+
+    <string name="notif_message_new_user">A new user has logged in</string>
+
 </resources>

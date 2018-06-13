@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import gs.firebase.demo.login.LoginFragment
 import gs.firebase.demo.navigation.NavigationFragment
-
 
 class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
@@ -34,6 +31,11 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             FirebaseDatabase.getInstance().usersCollection
                     .child(it.id.toString())
                     .setValue(it.copy(id = null))
+
+            sendMessageToTopic(
+                    topic = getString(R.string.fcm_topic_new_users),
+                    title = getString(R.string.notif_message_new_user),
+                    message = it.name!!)
         }
 
         // shows the proper screen (login or navigation)

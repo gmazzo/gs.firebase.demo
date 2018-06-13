@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:text="@string/config_title_notifications"
+        android:textColor="?colorPrimary"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/notifGeneral"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/config_title_general"
+                android:tag="@string/fcm_topic_general"
+                app:switchPadding="@dimen/margin" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/notifUsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/config_title_new_users"
+                android:tag="@string/fcm_topic_new_users"
+                app:switchPadding="@dimen/margin" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/notifMessages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/config_title_new_messages"
+                android:tag="@string/fcm_topic_new_messages"
+                app:switchPadding="@dimen/margin" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

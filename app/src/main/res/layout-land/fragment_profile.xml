@@ -105,11 +105,23 @@
             android:layout_marginTop="@dimen/margin"
             android:text="@string/action_logout"
             app:layout_constraintTop_toBottomOf="@id/email"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/config"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintHorizontal_bias="0" />
+
+        <fragment
+            android:id="@+id/config"
+            android:name="gs.firebase.demo.ConfigFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            tools:layout="@layout/fragment_config" />
 
     </android.support.constraint.ConstraintLayout>
 

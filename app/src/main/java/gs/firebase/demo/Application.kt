@@ -5,6 +5,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 
 class Application : android.app.Application() {
+    internal val fcmHelper by lazy { FirebaseMessagingHelper(this) }
 
     override fun onCreate() {
         super.onCreate()

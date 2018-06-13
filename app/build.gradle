@@ -24,6 +24,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/main.kotlin_module'
+    }
 }
 
 dependencies {
@@ -36,15 +40,19 @@ dependencies {
     implementation "com.android.support:design:$appCompatVersion"
     implementation 'com.facebook.android:facebook-android-sdk:4.33.0'
     implementation "com.google.android.gms:play-services-auth:$playServicesVersion"
-    implementation "com.google.firebase:firebase-core:16.0.0"
-    implementation "com.google.firebase:firebase-auth:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseVersion"
-    implementation "com.google.firebase:firebase-config:16.0.0"
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-config:16.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.picasso:picasso:2.71828', {
         exclude group: 'com.android.support'
     }
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

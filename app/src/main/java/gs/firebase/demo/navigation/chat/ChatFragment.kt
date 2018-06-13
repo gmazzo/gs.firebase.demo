@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.fragment_toolbar.*
 
 class ChatFragment : Fragment(), TextView.OnEditorActionListener {
+    private val user by lazy { FirebaseAuth.getInstance().currentUser!!.toModel() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_chat, container, false)!!
@@ -32,22 +33,18 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
             messageBox.requestFocus()
 
             if (text.isNotBlank()) {
-                FirebaseDatabase.getInstance().chatCollection
-                        .push()
-                        .setValue(Chat(
-                                userId = FirebaseAuth.getInstance().currentUser!!.uid,
-                                timestamp = System.currentTimeMillis(),
-                                message = text.toString()))
+                sendMessage(Chat(
+                        userId = FirebaseAuth.getInstance().currentUser!!.uid,
+                        timestamp = System.currentTimeMillis(),
+                        message = text.toString()))
             }
         }
 
         sendNudge.setOnClickListener {
-            FirebaseDatabase.getInstance().chatCollection
-                    .push()
-                    .setValue(Chat(
-                            userId = FirebaseAuth.getInstance().currentUser!!.uid,
-                            timestamp = System.currentTimeMillis(),
-                            nudge = true))
+            sendMessage(Chat(
+                    userId = FirebaseAuth.getInstance().currentUser!!.uid,
+                    timestamp = System.currentTimeMillis(),
+                    nudge = true))
         }
 
         FirebaseRemoteConfig.getInstance().apply {
@@ -58,6 +55,19 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent): Boolean {
         sendMessage.performClick()
         return true
+    }
+
+    private fun sendMessage(chat: Chat) {
+        FirebaseDatabase.getInstance().chatCollection
+                .push()
+                .setValue(chat)
+
+        chat.message?.let { message ->
+            context!!.sendMessageToTopic(
+                    topic = getString(R.string.fcm_topic_new_messages),
+                    title = user.name!!,
+                    message = message)
+        }
     }
 
 }

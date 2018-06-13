@@ -15,12 +15,11 @@ import com.google.gson.annotations.SerializedName
 import gs.firebase.demo.BuildConfig
 import gs.firebase.demo.R
 import gs.firebase.demo.report
+import gs.firebase.demo.retrofit
 import kotlinx.android.synthetic.main.fragment_auth.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
@@ -55,11 +54,7 @@ class GitHubAuthDialogFragment : DialogFragment(), Callback<GitHubAuthDialogFrag
     }
 
     private fun handleCallback(uri: Uri) {
-        Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://github.com/")
-                .build()
-                .create(GithubAPI::class.java)
+        retrofit("https://github.com/", GithubAPI::class.java)
                 .exchangeToken(code = uri.getQueryParameter("code"))
                 .enqueue(this)
 
