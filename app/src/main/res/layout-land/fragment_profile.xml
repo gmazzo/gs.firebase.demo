@@ -12,21 +12,32 @@
         android:animateLayoutChanges="true">
 
         <android.support.constraint.Guideline
-            android:id="@+id/horizontal25"
+            android:id="@+id/horizontal40"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".25" />
+            app:layout_constraintGuide_percent=".4" />
 
-        <View
-            android:id="@+id/background"
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical05"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="?colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/horizontal25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".05" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical35"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".35" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical40"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".4" />
 
         <Space
             android:id="@+id/helper"
@@ -34,41 +45,45 @@
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="@+id/photo"
             app:layout_constraintEnd_toEndOf="@+id/photo"
-            app:layout_constraintBottom_toBottomOf="@id/horizontal25"
+            app:layout_constraintBottom_toBottomOf="@id/horizontal40"
             app:layout_constraintDimensionRatio="2:1" />
+
+        <View
+            android:id="@+id/background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/horizontal40"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/photo"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@id/helper"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.5"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintVertical_bias="0.25"
+            app:layout_constraintStart_toStartOf="@id/vertical05"
+            app:layout_constraintEnd_toEndOf="@id/vertical35"
+            app:layout_constraintDimensionRatio="W,1:1"
             tools:src="@drawable/ic_github"
             tools:tint="?colorAccent" />
 
-        <android.support.constraint.Barrier
-            android:id="@+id/barrier"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="photo,background" />
-
         <TextView
+            android:theme="@style/ThemeOverlay.Inverse"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
             android:textAppearance="?android:textAppearanceLarge"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/barrier"
-            app:layout_constraintBottom_toTopOf="@+id/email"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/horizontal40"
+            app:layout_constraintStart_toEndOf="@id/vertical40"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintVertical_bias=".3"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="Guillermo Mazzola" />
 
         <TextView
@@ -77,22 +92,24 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:textAppearanceMedium"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintBottom_toTopOf="@+id/logout"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal40"
+            app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="gmazzo65@gmail.com" />
 
         <Button
             android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
             android:text="@string/action_logout"
             app:layout_constraintTop_toBottomOf="@id/email"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0" />
 
     </android.support.constraint.ConstraintLayout>
 
