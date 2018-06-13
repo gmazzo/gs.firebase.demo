@@ -2,7 +2,7 @@ package gs.firebase.demo.navigation.chat
 
 import android.media.MediaPlayer
 import android.support.v7.widget.RecyclerView
-import android.text.format.DateUtils
+import android.text.format.DateUtils.getRelativeTimeSpanString
 import android.view.View
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,9 +38,10 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
 
     private fun bindItem(item: Chat) {
         itemView.name.text = item.user?.name
-        itemView.timestamp.text = DateUtils.formatDateTime(itemView.context, item.timestamp!!, 0)
-        itemView.message.text = if (!item.nudge) item.message else
-            context.getText(R.string.message_nudge)
+        itemView.timestamp.text = getRelativeTimeSpanString(itemView.context, item.timestamp!!, false)
+        itemView.message.text = if (item.nudge == true)
+            context.getText(R.string.message_nudge) else
+            item.message
 
         item.user?.also { user ->
             Picasso.get()

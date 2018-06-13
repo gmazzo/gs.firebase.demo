@@ -16,6 +16,7 @@
         android:id="@+id/photo"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +28,7 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
@@ -37,6 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintStart_toEndOf="@id/guideline48dp"
         app:layout_constraintEnd_toStartOf="@+id/timestamp"
+        app:layout_constraintWidth_default="wrap"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_chainStyle="spread_inside"

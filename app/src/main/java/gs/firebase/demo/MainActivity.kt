@@ -17,14 +17,6 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         setContentView(R.layout.activity_main)
 
-        FirebaseRemoteConfig.getInstance().apply {
-            setConfigSettings(FirebaseRemoteConfigSettings.Builder()
-                    .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                    .build())
-            setDefaults(mapOf(BuildConfig.TOGGLE_NUDGE_ENABLED to false))
-            fetch().addOnCompleteListener { activateFetched() }
-        }
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         FirebaseAuth.getInstance().addAuthStateListener(this)
     }
 

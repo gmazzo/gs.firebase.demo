@@ -25,12 +25,16 @@ class ProfileFragment : Fragment(), FirebaseAuth.AuthStateListener, Callback {
         logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         FirebaseAuth.getInstance().addAuthStateListener(this)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
 
         FirebaseAuth.getInstance().removeAuthStateListener(this)
     }

@@ -5,4 +5,4 @@ data class Chat(var id: String? = null,
                 var user: User? = null,
                 var timestamp: Long? = null,
                 var message: String? = null,
-                var nudge: Boolean = false)
+                var nudge: Boolean? = null)

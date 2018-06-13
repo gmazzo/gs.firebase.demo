@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
@@ -20,14 +19,16 @@ class ToolbarFragment : Fragment(), FirebaseAuth.AuthStateListener, Target {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_toolbar, container, false)!!
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        FirebaseAuth.getInstance().addAuthStateListener(this)
+    override fun onStart() {
+        super.onStart()
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        FirebaseAuth.getInstance().addAuthStateListener(this)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
 
         FirebaseAuth.getInstance().removeAuthStateListener(this)
     }

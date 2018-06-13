@@ -21,7 +21,10 @@ class NavigationFragment : Fragment(), BottomNavigationView.OnNavigationItemSele
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navigation.also {
             it.setOnNavigationItemSelectedListener(this)
-            it.selectedItemId = R.id.users
+
+            if (savedInstanceState == null) {
+                it.selectedItemId = R.id.users
+            }
         }
     }
 
@@ -30,8 +33,9 @@ class NavigationFragment : Fragment(), BottomNavigationView.OnNavigationItemSele
             R.id.users -> UsersFragment()
             R.id.chat -> ChatFragment()
             R.id.profile -> ProfileFragment()
+
             else -> throw IllegalArgumentException("unknown menu: $item")
-        }
+        }.apply { retainInstance = true }
 
         fragmentManager!!.beginTransaction()
                 .replace(R.id.navigationContent, fragment, item.itemId.toString())
