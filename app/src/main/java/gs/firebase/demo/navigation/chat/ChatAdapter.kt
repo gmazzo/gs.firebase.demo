@@ -1,6 +1,5 @@
 package gs.firebase.demo.navigation.chat
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.firebase.database.DataSnapshot
@@ -11,8 +10,8 @@ import gs.firebase.demo.chatCollection
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.toChat
 
-class ChatAdapter(context: Context) : FirebaseAdapter<Chat, ChatViewHolder>(
-        context,
+class ChatAdapter(val fragment: ChatFragment) : FirebaseAdapter<Chat, ChatViewHolder>(
+        fragment.context!!,
         FirebaseDatabase.getInstance().chatCollection,
         DataSnapshot::toChat,
         { it.id!! }) {
@@ -38,7 +37,7 @@ class ChatAdapter(context: Context) : FirebaseAdapter<Chat, ChatViewHolder>(
     override fun onViewAttachedToWindow(holder: ChatViewHolder) {
         super.onViewAttachedToWindow(holder)
 
-        holder.onAttached()
+        holder.onAttached(fragment)
     }
 
     companion object {

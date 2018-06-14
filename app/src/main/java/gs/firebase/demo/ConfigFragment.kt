@@ -19,12 +19,12 @@ class ConfigFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = context!!.prefs
 
-        arrayOf(notifGeneral, notifUsers, notifMessages).forEach { view ->
-            val tag = view.tag as String
+        arrayOf(notifGeneral, notifUsers, notifMessages).forEach { check ->
+            val tag = check.tag as String
 
-            view.isChecked = prefs.getBoolean(tag, true)
+            check.isChecked = prefs.getBoolean(tag, true)
 
-            view.setOnCheckedChangeListener { _, checked ->
+            check.setOnCheckedChangeListener { _, checked ->
                 prefs.config(tag, checked)
             }
         }

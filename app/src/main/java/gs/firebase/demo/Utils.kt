@@ -16,7 +16,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.models.User
-import kotlinx.coroutines.experimental.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -120,9 +119,3 @@ fun DataSnapshot.toUser() =
 
 fun DataSnapshot.toChat() =
         getValue(Chat::class.java)!!.also { it.id = key }
-
-fun Context.sendMessageToTopic(topic: String, title: String, message: String) =
-        launch {
-            (applicationContext as Application).fcmHelper.sendMessageToTopic(topic, title, message)
-        }
-

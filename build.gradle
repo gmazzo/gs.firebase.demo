@@ -1,8 +1,9 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.41'
+        kotlinVersion = '1.2.50'
         appCompatVersion = '27.1.1'
-        playServicesVersion = '15.0.1'
+
+        fcmTopics = ['general', 'new_users', 'new_messages']
     }
 
     repositories {

@@ -1,0 +1,34 @@
+import groovy.json.JsonOutput
+
+apply plugin: 'java'
+
+task install(type: Exec) {
+    commandLine 'npm'
+    workingDir 'functions'
+    args 'install'
+}
+
+task deploy(type: Exec) {
+    dependsOn 'generateTopics'
+
+    commandLine 'firebase'
+    args 'deploy'
+}
+
+task generateTopics {
+    def file = file("functions/src/topics.ts")
+
+    inputs.property 'topics', fcmTopics.toString()
+    outputs.file file
+
+    doLast {
+        def json = JsonOutput.toJson(fcmTopics.collectEntries { [(it): it] })
+
+        file.with {
+            parentFile.mkdirs()
+            text = "const topics = $json;\n\n export default topics;"
+        }
+    }
+}
+
+classes.dependsOn generateTopics, install

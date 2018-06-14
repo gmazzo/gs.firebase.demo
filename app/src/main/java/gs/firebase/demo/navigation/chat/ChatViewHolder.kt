@@ -1,6 +1,5 @@
 package gs.firebase.demo.navigation.chat
 
-import android.media.MediaPlayer
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils.getRelativeTimeSpanString
 import android.view.View
@@ -12,6 +11,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import gs.firebase.demo.*
 import gs.firebase.demo.models.Chat
+import gs.firebase.demo.models.User
 import kotlinx.android.synthetic.main.item_chat.view.*
 import java.lang.Exception
 
@@ -58,7 +58,7 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
                     override fun onDataChange(snapshot: DataSnapshot) {
                         item?.also { item ->
                             if (item.userId == userId) { // checks if the holder was rebound to another item
-                                item.user = snapshot.toUser()
+                                item.user = snapshot.takeIf { snapshot.exists() }?.toUser() ?: User()
 
                                 bindItem(item)
                             }
@@ -72,12 +72,17 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
                 })
     }
 
-    fun onAttached() {
-        if (isNew && item?.nudge == true) {
+    fun onAttached(fragment: ChatFragment) {
+        if (isNew) {
             isNew = false
 
-            MediaPlayer.create(context, R.raw.nudge).start()
-            itemView.ancestor(android.R.id.content)!!.shake()
+            if (item?.nudge == true) {
+                fragment.nudgeSound.start()
+                itemView.ancestor(android.R.id.content)!!.shake()
+
+            } else {
+                fragment.msnSound.start()
+            }
         }
     }
 

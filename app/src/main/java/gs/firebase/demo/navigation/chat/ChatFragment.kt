@@ -1,5 +1,6 @@
 package gs.firebase.demo.navigation.chat
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.KeyEvent
@@ -16,13 +17,28 @@ import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.fragment_toolbar.*
 
 class ChatFragment : Fragment(), TextView.OnEditorActionListener {
-    private val user by lazy { FirebaseAuth.getInstance().currentUser!!.toModel() }
+    lateinit var msnSound: MediaPlayer
+    lateinit var nudgeSound: MediaPlayer
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        msnSound = MediaPlayer.create(context, R.raw.msn)
+        nudgeSound = MediaPlayer.create(context, R.raw.nudge)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        msnSound.release()
+        nudgeSound.release()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_chat, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycler.adapter = ChatAdapter(context!!).withLoading(activity!!.loading)
+        recycler.adapter = ChatAdapter(this).withLoading(activity!!.loading)
         recycler.scrollDownOnInsert()
 
         messageBox.setOnEditorActionListener(this)
@@ -33,18 +49,12 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
             messageBox.requestFocus()
 
             if (text.isNotBlank()) {
-                sendMessage(Chat(
-                        userId = FirebaseAuth.getInstance().currentUser!!.uid,
-                        timestamp = System.currentTimeMillis(),
-                        message = text.toString()))
+                sendMessage({ message = text.toString() })
             }
         }
 
         sendNudge.setOnClickListener {
-            sendMessage(Chat(
-                    userId = FirebaseAuth.getInstance().currentUser!!.uid,
-                    timestamp = System.currentTimeMillis(),
-                    nudge = true))
+            sendMessage({ nudge = true })
         }
 
         FirebaseRemoteConfig.getInstance().apply {
@@ -57,17 +67,12 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
         return true
     }
 
-    private fun sendMessage(chat: Chat) {
-        FirebaseDatabase.getInstance().chatCollection
-                .push()
-                .setValue(chat)
-
-        chat.message?.let { message ->
-            context!!.sendMessageToTopic(
-                    topic = getString(R.string.fcm_topic_new_messages),
-                    title = user.name!!,
-                    message = message)
-        }
-    }
+    private fun sendMessage(block: Chat.() -> Unit) =
+            FirebaseDatabase.getInstance().chatCollection
+                    .push()
+                    .setValue(Chat(
+                            userId = FirebaseAuth.getInstance().currentUser!!.uid,
+                            timestamp = System.currentTimeMillis())
+                            .apply(block))
 
 }
