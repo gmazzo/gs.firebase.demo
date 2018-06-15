@@ -2,6 +2,9 @@ package gs.firebase.demo.views.navigation.chat
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +51,9 @@ class ChatFragment : DaggerFragment(), TextView.OnEditorActionListener {
             inflater.inflate(R.layout.fragment_chat, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycler.adapter = ChatAdapter(this).withLoading(activity!!.loading)
+        recycler.adapter = ChatAdapter(this)
+                .apply { registerAdapterDataObserver(ShowEmptyMessageAdapterObserver(this)) }
+                .withLoading(activity!!.loading)
         recycler.scrollDownOnInsert()
 
         messageBox.setOnEditorActionListener(this)
@@ -84,5 +89,35 @@ class ChatFragment : DaggerFragment(), TextView.OnEditorActionListener {
                             userId = auth.currentUser!!.uid,
                             timestamp = System.currentTimeMillis())
                             .apply(block))
+
+    inner class ShowEmptyMessageAdapterObserver(private val adapter: RecyclerView.Adapter<*>) : RecyclerView.AdapterDataObserver(), Runnable {
+        private val handler = Handler(Looper.getMainLooper())
+
+        init {
+            showMessageIfEmpty()
+        }
+
+        override fun onChanged() {
+            showMessageIfEmpty()
+        }
+
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            showMessageIfEmpty()
+        }
+
+        override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+            showMessageIfEmpty()
+        }
+
+        private fun showMessageIfEmpty() {
+            handler.removeCallbacks(this)
+            handler.postDelayed(this, 100)
+        }
+
+        override fun run() {
+            empty?.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
+        }
+
+    }
 
 }

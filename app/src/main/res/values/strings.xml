@@ -4,6 +4,9 @@
     <string name="facebook_app_id">166745810847472</string>
     <string name="fb_login_protocol_scheme">fb166745810847472</string>
 
+    <string name="err_field_required">This field is required</string>
+    <string name="msg_no_items">There is nothing here… yet</string>
+
     <string-array name="label_login_labels">
         <item>Social networks</item>
         <item>By phone</item>
@@ -20,7 +23,6 @@
     <string name="label_validation_code">Validation Code</string>
     <string name="label_request_code">Request Code</string>
     <string name="label_validate_code">Validate Code</string>
-    <string name="err_field_required">This field is required</string>
 
     <string name="title_users">Users</string>
     <string name="title_chat">Chat</string>
