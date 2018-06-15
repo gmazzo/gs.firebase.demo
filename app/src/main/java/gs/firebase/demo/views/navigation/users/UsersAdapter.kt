@@ -1,15 +1,15 @@
-package gs.firebase.demo.navigation.users
+package gs.firebase.demo.views.navigation.users
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
-import gs.firebase.demo.FirebaseAdapter
 import gs.firebase.demo.R
 import gs.firebase.demo.models.User
 import gs.firebase.demo.toUser
 import gs.firebase.demo.usersCollection
+import gs.firebase.demo.views.FirebaseAdapter
 
 class UsersAdapter(context: Context) : FirebaseAdapter<User, UsersViewHolder>(
         context,

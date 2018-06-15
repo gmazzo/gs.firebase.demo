@@ -10,21 +10,21 @@
 
     <fragment
         android:tag="google"
-        android:name="gs.firebase.demo.login.GoogleLoginFragment"
+        android:name="gs.firebase.demo.views.login.GoogleLoginFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_login_google" />
 
     <fragment
         android:tag="facebook"
-        android:name="gs.firebase.demo.login.FacebookLoginFragment"
+        android:name="gs.firebase.demo.views.login.FacebookLoginFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_login_facebook" />
 
     <fragment
         android:tag="github"
-        android:name="gs.firebase.demo.login.GitHubLoginFragment"
+        android:name="gs.firebase.demo.views.login.GitHubLoginFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_login_github" />

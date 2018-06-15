@@ -1,13 +1,13 @@
-package gs.firebase.demo.login
+package gs.firebase.demo.views.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import gs.firebase.demo.CardWrapperFragment
 import gs.firebase.demo.R
 import gs.firebase.demo.text
+import gs.firebase.demo.views.CardWrapperFragment
 import kotlinx.android.synthetic.main.fragment_login_email.*
 
 class EmailLoginFragment : CardWrapperFragment() {

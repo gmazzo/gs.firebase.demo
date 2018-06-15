@@ -1,4 +1,4 @@
-package gs.firebase.demo.navigation.users
+package gs.firebase.demo.views.navigation.users
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

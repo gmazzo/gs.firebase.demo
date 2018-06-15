@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.models.User
+import gs.firebase.demo.views.LoadingAdapterObserver
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

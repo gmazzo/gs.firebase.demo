@@ -96,7 +96,7 @@
 
         <fragment
             android:id="@+id/config"
-            android:name="gs.firebase.demo.ConfigFragment"
+            android:name="gs.firebase.demo.views.ConfigFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"

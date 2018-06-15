@@ -1,4 +1,4 @@
-package gs.firebase.demo.navigation.chat
+package gs.firebase.demo.views.navigation.chat
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -49,12 +49,12 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
             messageBox.requestFocus()
 
             if (text.isNotBlank()) {
-                sendMessage({ message = text.toString() })
+                sendMessage { message = text.toString() }
             }
         }
 
         sendNudge.setOnClickListener {
-            sendMessage({ nudge = true })
+            sendMessage { nudge = true }
         }
 
         FirebaseRemoteConfig.getInstance().apply {

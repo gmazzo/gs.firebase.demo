@@ -1,4 +1,4 @@
-package gs.firebase.demo
+package gs.firebase.demo.views
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
 import com.google.firebase.messaging.FirebaseMessaging
+import gs.firebase.demo.R
 import kotlinx.android.synthetic.main.fragment_config.*
 
 class ConfigFragment : Fragment() {

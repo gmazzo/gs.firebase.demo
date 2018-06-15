@@ -1,4 +1,4 @@
-package gs.firebase.demo
+package gs.firebase.demo.views
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import gs.firebase.demo.R
 import kotlinx.android.synthetic.main.fragment_toolbar.*
 import java.lang.Exception
 

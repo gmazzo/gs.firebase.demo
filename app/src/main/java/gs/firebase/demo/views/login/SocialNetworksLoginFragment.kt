@@ -1,10 +1,10 @@
-package gs.firebase.demo.login
+package gs.firebase.demo.views.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import gs.firebase.demo.CardWrapperFragment
 import gs.firebase.demo.R
+import gs.firebase.demo.views.CardWrapperFragment
 
 class SocialNetworksLoginFragment : CardWrapperFragment() {
 

@@ -3,8 +3,8 @@ package gs.firebase.demo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import gs.firebase.demo.login.LoginFragment
-import gs.firebase.demo.navigation.NavigationFragment
+import gs.firebase.demo.views.login.LoginFragment
+import gs.firebase.demo.views.navigation.NavigationFragment
 
 class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 

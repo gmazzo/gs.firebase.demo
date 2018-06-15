@@ -1,4 +1,4 @@
-package gs.firebase.demo.login
+package gs.firebase.demo.views.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import gs.firebase.demo.CardWrapperFragment
 import gs.firebase.demo.R
 import gs.firebase.demo.text
+import gs.firebase.demo.views.CardWrapperFragment
 import kotlinx.android.synthetic.main.fragment_login_email.*
 import kotlinx.android.synthetic.main.fragment_login_phone.*
 import java.util.concurrent.TimeUnit

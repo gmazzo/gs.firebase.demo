@@ -1,4 +1,4 @@
-package gs.firebase.demo.navigation
+package gs.firebase.demo.views.navigation
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -8,9 +8,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import gs.firebase.demo.R
-import gs.firebase.demo.navigation.chat.ChatFragment
-import gs.firebase.demo.navigation.profile.ProfileFragment
-import gs.firebase.demo.navigation.users.UsersFragment
+import gs.firebase.demo.views.navigation.chat.ChatFragment
+import gs.firebase.demo.views.navigation.profile.ProfileFragment
+import gs.firebase.demo.views.navigation.users.UsersFragment
 import kotlinx.android.synthetic.main.fragment_navigation.*
 
 class NavigationFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedListener {

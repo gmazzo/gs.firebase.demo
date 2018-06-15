@@ -1,4 +1,4 @@
-package gs.firebase.demo
+package gs.firebase.demo.views
 
 import android.os.Handler
 import android.os.Looper

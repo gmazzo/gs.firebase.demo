@@ -1,4 +1,4 @@
-package gs.firebase.demo.navigation.chat
+package gs.firebase.demo.views.navigation.chat
 
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils.getRelativeTimeSpanString

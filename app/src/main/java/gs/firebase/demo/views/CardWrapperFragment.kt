@@ -1,10 +1,11 @@
-package gs.firebase.demo
+package gs.firebase.demo.views
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import gs.firebase.demo.R
 import kotlinx.android.synthetic.main.fragment_card_wrapper.view.*
 
 abstract class CardWrapperFragment : Fragment() {
@@ -16,6 +17,6 @@ abstract class CardWrapperFragment : Fragment() {
                 view.cardWrapper.apply {
                     addView(onCreateWrappedView(inflater, this, savedInstanceState))
                 }
-            }
+            }!!
 
 }

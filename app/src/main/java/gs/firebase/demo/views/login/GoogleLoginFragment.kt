@@ -1,4 +1,4 @@
-package gs.firebase.demo.login
+package gs.firebase.demo.views.login
 
 import android.content.Intent
 import android.os.Bundle

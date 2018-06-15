@@ -1,4 +1,4 @@
-package gs.firebase.demo.login
+package gs.firebase.demo.views.login
 
 import android.annotation.SuppressLint
 import android.net.Uri

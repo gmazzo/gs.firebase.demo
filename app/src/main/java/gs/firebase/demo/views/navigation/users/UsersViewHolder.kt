@@ -1,4 +1,4 @@
-package gs.firebase.demo.navigation.users
+package gs.firebase.demo.views.navigation.users
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

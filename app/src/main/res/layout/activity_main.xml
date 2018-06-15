@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/toolbar"
-        android:name="gs.firebase.demo.ToolbarFragment"
+        android:name="gs.firebase.demo.views.ToolbarFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_toolbar" />

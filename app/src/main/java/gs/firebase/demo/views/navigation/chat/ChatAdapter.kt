@@ -1,14 +1,14 @@
-package gs.firebase.demo.navigation.chat
+package gs.firebase.demo.views.navigation.chat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
-import gs.firebase.demo.FirebaseAdapter
 import gs.firebase.demo.R
 import gs.firebase.demo.chatCollection
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.toChat
+import gs.firebase.demo.views.FirebaseAdapter
 
 class ChatAdapter(val fragment: ChatFragment) : FirebaseAdapter<Chat, ChatViewHolder>(
         fragment.context!!,
