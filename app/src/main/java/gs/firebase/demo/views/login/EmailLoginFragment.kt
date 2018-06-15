@@ -9,8 +9,12 @@ import gs.firebase.demo.R
 import gs.firebase.demo.text
 import gs.firebase.demo.views.CardWrapperFragment
 import kotlinx.android.synthetic.main.fragment_login_email.*
+import javax.inject.Inject
 
 class EmailLoginFragment : CardWrapperFragment() {
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateWrappedView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_login_email, container, false)!!
@@ -21,7 +25,7 @@ class EmailLoginFragment : CardWrapperFragment() {
             val pass = password.text
 
             if (user != null && pass != null) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(user, pass)
+                auth.signInWithEmailAndPassword(user, pass)
                         .addOnFailureListener { e ->
                             e.printStackTrace()
 

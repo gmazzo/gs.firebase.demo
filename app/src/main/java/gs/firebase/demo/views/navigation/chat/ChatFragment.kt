@@ -2,7 +2,6 @@ package gs.firebase.demo.views.navigation.chat
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +10,25 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import dagger.android.support.DaggerFragment
 import gs.firebase.demo.*
 import gs.firebase.demo.models.Chat
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.fragment_toolbar.*
+import javax.inject.Inject
 
-class ChatFragment : Fragment(), TextView.OnEditorActionListener {
+class ChatFragment : DaggerFragment(), TextView.OnEditorActionListener {
     lateinit var msnSound: MediaPlayer
     lateinit var nudgeSound: MediaPlayer
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var database: FirebaseDatabase
+
+    @Inject
+    lateinit var remoteConfig: FirebaseRemoteConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +67,7 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
             sendMessage { nudge = true }
         }
 
-        FirebaseRemoteConfig.getInstance().apply {
+        remoteConfig.apply {
             sendNudge.visibility = if (getBoolean(BuildConfig.TOGGLE_NUDGE_ENABLED)) View.VISIBLE else View.GONE
         }
     }
@@ -68,10 +78,10 @@ class ChatFragment : Fragment(), TextView.OnEditorActionListener {
     }
 
     private fun sendMessage(block: Chat.() -> Unit) =
-            FirebaseDatabase.getInstance().chatCollection
+            database.chatCollection
                     .push()
                     .setValue(Chat(
-                            userId = FirebaseAuth.getInstance().currentUser!!.uid,
+                            userId = auth.currentUser!!.uid,
                             timestamp = System.currentTimeMillis())
                             .apply(block))
 

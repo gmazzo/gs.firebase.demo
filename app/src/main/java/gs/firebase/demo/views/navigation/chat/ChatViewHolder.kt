@@ -15,7 +15,7 @@ import gs.firebase.demo.models.User
 import kotlinx.android.synthetic.main.item_chat.view.*
 import java.lang.Exception
 
-class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view), Callback {
+class ChatViewHolder(val database: FirebaseDatabase, view: View, single: Boolean) : RecyclerView.ViewHolder(view), Callback {
     var isNew: Boolean = false
     var item: Chat? = null
         set(value) {
@@ -51,7 +51,7 @@ class ChatViewHolder(view: View, single: Boolean) : RecyclerView.ViewHolder(view
     }
 
     private fun lookupUser(userId: String) {
-        FirebaseDatabase.getInstance().usersCollection
+        database.usersCollection
                 .child(userId)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
 

@@ -3,7 +3,6 @@ package gs.firebase.demo.views.navigation.chat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.R
 import gs.firebase.demo.chatCollection
 import gs.firebase.demo.models.Chat
@@ -12,7 +11,7 @@ import gs.firebase.demo.views.FirebaseAdapter
 
 class ChatAdapter(val fragment: ChatFragment) : FirebaseAdapter<Chat, ChatViewHolder>(
         fragment.context!!,
-        FirebaseDatabase.getInstance().chatCollection,
+        fragment.database.chatCollection,
         DataSnapshot::toChat,
         { it.id!! }) {
     private var lastTimestamp = System.currentTimeMillis()
@@ -22,6 +21,7 @@ class ChatAdapter(val fragment: ChatFragment) : FirebaseAdapter<Chat, ChatViewHo
                 TYPE_FULL else TYPE_SINGLE
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChatViewHolder(
+            database = fragment.database,
             view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_chat, parent, false),
             single = viewType == TYPE_SINGLE)

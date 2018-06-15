@@ -3,7 +3,6 @@ package gs.firebase.demo.views
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -11,11 +10,16 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
+import dagger.android.support.DaggerFragment
 import gs.firebase.demo.R
 import kotlinx.android.synthetic.main.fragment_toolbar.*
 import java.lang.Exception
+import javax.inject.Inject
 
-class ToolbarFragment : Fragment(), FirebaseAuth.AuthStateListener, Target {
+class ToolbarFragment : DaggerFragment(), FirebaseAuth.AuthStateListener, Target {
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_toolbar, container, false)!!
@@ -25,13 +29,13 @@ class ToolbarFragment : Fragment(), FirebaseAuth.AuthStateListener, Target {
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
-        FirebaseAuth.getInstance().addAuthStateListener(this)
+        auth.addAuthStateListener(this)
     }
 
     override fun onStop() {
         super.onStop()
 
-        FirebaseAuth.getInstance().removeAuthStateListener(this)
+        auth.removeAuthStateListener(this)
     }
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {

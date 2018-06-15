@@ -2,7 +2,6 @@ package gs.firebase.demo.views.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import dagger.android.support.DaggerFragment
 import gs.firebase.demo.R
 import gs.firebase.demo.report
 import kotlinx.android.synthetic.main.fragment_login_google.*
+import javax.inject.Inject
 
 
-class GoogleLoginFragment : Fragment() {
+class GoogleLoginFragment : DaggerFragment() {
     private lateinit var client: GoogleSignInClient
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +51,7 @@ class GoogleLoginFragment : Fragment() {
             if (result.isSuccessful) {
                 val credential = GoogleAuthProvider.getCredential(result.result.idToken, null)
 
-                FirebaseAuth.getInstance().signInWithCredential(credential)
+                auth.signInWithCredential(credential)
 
             } else {
                 result.exception?.report(context!!)

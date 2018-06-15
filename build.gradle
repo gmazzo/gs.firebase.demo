@@ -2,6 +2,7 @@ buildscript {
     ext {
         kotlinVersion = '1.2.50'
         appCompatVersion = '27.1.1'
+        daggerVersion = '2.16'
 
         fcmTopics = ['general', 'new_users', 'new_messages']
     }

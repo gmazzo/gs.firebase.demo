@@ -14,8 +14,12 @@ import gs.firebase.demo.views.CardWrapperFragment
 import kotlinx.android.synthetic.main.fragment_login_email.*
 import kotlinx.android.synthetic.main.fragment_login_phone.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class PhoneLoginFragment : CardWrapperFragment() {
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateWrappedView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_login_phone, container, false)!!
@@ -39,7 +43,7 @@ class PhoneLoginFragment : CardWrapperFragment() {
             val password = password.text
 
             if (email != null && password != null) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                auth.signInWithEmailAndPassword(email, password)
             }
         }
     }
@@ -54,7 +58,7 @@ class PhoneLoginFragment : CardWrapperFragment() {
     inner class Callback : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            FirebaseAuth.getInstance().signInWithCredential(credential)
+            auth.signInWithCredential(credential)
         }
 
         override fun onVerificationFailed(e: FirebaseException) {

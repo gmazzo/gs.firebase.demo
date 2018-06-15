@@ -11,7 +11,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.models.Chat
@@ -108,12 +107,6 @@ val FirebaseDatabase.usersCollection
 val FirebaseDatabase.chatCollection
     get() =
         getReference("chat")
-
-fun FirebaseUser.toModel() = User(
-        id = uid,
-        name = displayName,
-        email = email,
-        photoUrl = photoUrl?.toString())
 
 fun DataSnapshot.toUser() =
         getValue(User::class.java)!!.also { it.id = key }

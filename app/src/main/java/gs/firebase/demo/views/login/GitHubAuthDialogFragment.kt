@@ -3,7 +3,6 @@ package gs.firebase.demo.views.login
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import android.webkit.WebViewClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GithubAuthProvider
 import com.google.gson.annotations.SerializedName
+import dagger.android.support.DaggerAppCompatDialogFragment
 import gs.firebase.demo.BuildConfig
 import gs.firebase.demo.R
 import gs.firebase.demo.report
@@ -24,8 +24,12 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
 import retrofit2.http.POST
+import javax.inject.Inject
 
-class GitHubAuthDialogFragment : DialogFragment(), Callback<GitHubAuthDialogFragment.TokenResponse> {
+class GitHubAuthDialogFragment : DaggerAppCompatDialogFragment(), Callback<GitHubAuthDialogFragment.TokenResponse> {
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_auth, container, false)!!
@@ -63,7 +67,7 @@ class GitHubAuthDialogFragment : DialogFragment(), Callback<GitHubAuthDialogFrag
     override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
         val credential = GithubAuthProvider.getCredential(response.body()!!.accessToken)
 
-        FirebaseAuth.getInstance().signInWithCredential(credential)
+        auth.signInWithCredential(credential)
                 .addOnFailureListener { e ->
                     e.report(context!!)
                 }

@@ -1,7 +1,6 @@
 package gs.firebase.demo.views.navigation.profile
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,19 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import dagger.android.support.DaggerFragment
 import gs.firebase.demo.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.lang.Exception
+import javax.inject.Inject
 
-class ProfileFragment : Fragment(), FirebaseAuth.AuthStateListener, Callback, ValueEventListener {
+class ProfileFragment : DaggerFragment(), FirebaseAuth.AuthStateListener, Callback, ValueEventListener {
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var database: FirebaseDatabase
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_profile, container, false)!!
@@ -25,25 +32,25 @@ class ProfileFragment : Fragment(), FirebaseAuth.AuthStateListener, Callback, Va
         super.onViewCreated(view, savedInstanceState)
 
         logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+            auth.signOut()
         }
     }
 
     override fun onStart() {
         super.onStart()
 
-        FirebaseAuth.getInstance().addAuthStateListener(this)
+        auth.addAuthStateListener(this)
     }
 
     override fun onStop() {
         super.onStop()
 
-        FirebaseAuth.getInstance().removeAuthStateListener(this)
+        auth.removeAuthStateListener(this)
     }
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {
         auth.currentUser?.also { user ->
-            FirebaseDatabase.getInstance().usersCollection
+            database.usersCollection
                     .child(user.uid)
                     .addListenerForSingleValueEvent(this)
         }
@@ -62,7 +69,7 @@ class ProfileFragment : Fragment(), FirebaseAuth.AuthStateListener, Callback, Va
                 }
 
             } else {
-                FirebaseAuth.getInstance().signOut()
+                auth.signOut()
             }
         }
     }

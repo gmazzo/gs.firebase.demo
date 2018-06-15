@@ -1,25 +1,29 @@
 package gs.firebase.demo
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import dagger.android.support.DaggerAppCompatActivity
 import gs.firebase.demo.views.login.LoginFragment
 import gs.firebase.demo.views.navigation.NavigationFragment
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
+class MainActivity : DaggerAppCompatActivity(), FirebaseAuth.AuthStateListener {
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
-        FirebaseAuth.getInstance().addAuthStateListener(this)
+        auth.addAuthStateListener(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        FirebaseAuth.getInstance().removeAuthStateListener(this)
+        auth.removeAuthStateListener(this)
     }
 
     override fun onAuthStateChanged(auth: FirebaseAuth) {
