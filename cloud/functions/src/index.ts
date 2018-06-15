@@ -5,28 +5,28 @@ import topics from './topics';
 admin.initializeApp(functions.config().firebase);
 
 exports.registerNewUserOnDatabase = functions.auth.user().onCreate(event => {
-    const id = event.uid;
-    let name = event.displayName;
-    const email = event.email;
-    let photoUrl = event.photoURL;
-
     const promises = [];
 
     let update = false;
-    if (!name && event.phoneNumber) {
-        name = event.phoneNumber;
+    if (!event.displayName) {
+        event.displayName = event.phoneNumber;
         update = true
     }
-    if (!photoUrl) {
-        photoUrl = 'https://firebasestorage.googleapis.com/v0/b/fir-demo-16877.appspot.com/o/avatar.jpg?alt=media&token=bc005b42-e18f-4a02-97cb-8d2004954a25';
+    if (!event.photoURL) {
+        event.photoURL = 'https://firebasestorage.googleapis.com/v0/b/fir-demo-16877.appspot.com/o/avatar.jpg?alt=media&token=bc005b42-e18f-4a02-97cb-8d2004954a25';
         update = true
     }
     if (update) {
-        promises.push(admin.auth().updateUser(id, {
-            displayName: name,
-            photoURL: photoUrl
+        promises.push(admin.auth().updateUser(event.uid, {
+            displayName: event.displayName,
+            photoURL: event.photoURL
         }));
     }
+
+    const id = event.uid;
+    const name = event.displayName;
+    const email = event.email;
+    const photoUrl = event.photoURL;
 
     console.log('registerNewUserOnDatabase: id=' + id + ', name=' + name + ', email=' + email + ', photoUrl=' + photoUrl);
 
