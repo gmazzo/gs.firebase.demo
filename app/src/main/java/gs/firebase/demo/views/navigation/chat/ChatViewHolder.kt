@@ -39,9 +39,10 @@ class ChatViewHolder(val database: FirebaseDatabase, view: View, single: Boolean
     private fun bindItem(item: Chat) {
         itemView.name.text = item.user?.name
         itemView.timestamp.text = getRelativeTimeSpanString(itemView.context, item.timestamp!!, false)
-        itemView.message.text = if (item.nudge == true)
-            context.getText(R.string.message_nudge) else
-            item.message
+        itemView.message.text = when (item.type) {
+            Chat.Type.MESSAGE -> item.message
+            Chat.Type.NUDGE -> context.getText(R.string.message_nudge)
+        }
 
         item.user?.also { user ->
             Picasso.get()
@@ -76,12 +77,13 @@ class ChatViewHolder(val database: FirebaseDatabase, view: View, single: Boolean
         if (isNew) {
             isNew = false
 
-            if (item?.nudge == true) {
-                fragment.nudgeSound.start()
-                itemView.ancestor(android.R.id.content)!!.shake()
+            when (item!!.type) {
+                Chat.Type.NUDGE -> {
+                    fragment.nudgeSound.start()
+                    itemView.ancestor(android.R.id.content)!!.shake()
+                }
 
-            } else {
-                fragment.msnSound.start()
+                else -> fragment.msnSound.start()
             }
         }
     }

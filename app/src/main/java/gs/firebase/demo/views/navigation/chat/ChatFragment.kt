@@ -69,7 +69,7 @@ class ChatFragment : DaggerFragment(), TextView.OnEditorActionListener {
         }
 
         sendNudge.setOnClickListener {
-            sendMessage { nudge = true }
+            sendMessage { type = Chat.Type.NUDGE }
         }
 
         remoteConfig.apply {
