@@ -21,7 +21,7 @@ interface LoginModule {
     @ContributesAndroidInjector
     fun provideGitHubLoginFragment(): GitHubLoginFragment
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [GitHubAuthModule::class])
     fun provideGitHubAuthDialogFragment(): GitHubAuthDialogFragment
 
     @ContributesAndroidInjector

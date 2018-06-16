@@ -23,7 +23,7 @@ class NavigationFragment : Fragment(), BottomNavigationView.OnNavigationItemSele
             it.setOnNavigationItemSelectedListener(this)
 
             if (savedInstanceState == null) {
-                it.selectedItemId = R.id.users
+                it.selectedItemId = R.id.chat
             }
         }
     }

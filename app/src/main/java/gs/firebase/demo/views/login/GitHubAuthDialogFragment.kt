@@ -1,6 +1,7 @@
 package gs.firebase.demo.views.login
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +16,6 @@ import dagger.android.support.DaggerAppCompatDialogFragment
 import gs.firebase.demo.BuildConfig
 import gs.firebase.demo.R
 import gs.firebase.demo.report
-import gs.firebase.demo.retrofit
 import kotlinx.android.synthetic.main.fragment_auth.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +31,13 @@ class GitHubAuthDialogFragment : DaggerAppCompatDialogFragment(), Callback<GitHu
     @Inject
     lateinit var auth: FirebaseAuth
 
+    @Inject
+    internal lateinit var api: GithubAPI
+
+    // workaround: webView doesn't shows well if wrap_content and AppCompatDialog
+    override fun onCreateDialog(savedInstanceState: Bundle?) =
+            Dialog(activity!!, theme)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_auth, container, false)!!
 
@@ -45,7 +52,8 @@ class GitHubAuthDialogFragment : DaggerAppCompatDialogFragment(), Callback<GitHu
                 @Suppress("OverridingDeprecatedMember")
                 override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                     if (url.startsWith(BuildConfig.FIREBASE_AUTH_ENDPOINT)) {
-                        handleCallback(Uri.parse(url))
+                        api.exchangeToken(code = Uri.parse(url).getQueryParameter("code"))
+                                .enqueue(this@GitHubAuthDialogFragment)
                         return true
                     }
                     return false
@@ -55,13 +63,6 @@ class GitHubAuthDialogFragment : DaggerAppCompatDialogFragment(), Callback<GitHu
 
             loadUrl("https://github.com/login/oauth/authorize?client_id=${BuildConfig.GITHUB_CLIENT_ID}")
         }
-    }
-
-    private fun handleCallback(uri: Uri) {
-        retrofit("https://github.com/", GithubAPI::class.java)
-                .exchangeToken(code = uri.getQueryParameter("code"))
-                .enqueue(this)
-
     }
 
     override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
@@ -80,7 +81,7 @@ class GitHubAuthDialogFragment : DaggerAppCompatDialogFragment(), Callback<GitHu
         t.report(context!!)
     }
 
-    private interface GithubAPI {
+    internal interface GithubAPI {
 
         @POST("login/oauth/access_token")
         @FormUrlEncoded

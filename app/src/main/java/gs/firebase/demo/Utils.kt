@@ -16,10 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.models.User
 import gs.firebase.demo.views.LoadingAdapterObserver
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 fun View.ancestor(@IdRes withId: Int): View? =
         ancestor { it.id == withId }
@@ -87,18 +83,6 @@ fun Throwable.report(context: Context) {
 
     localizedMessage?.toast(context)
 }
-
-fun <T> retrofit(baseUrl: String, service: Class<T>) =
-        Retrofit.Builder()
-                .client(OkHttpClient.Builder()
-                        .addInterceptor(HttpLoggingInterceptor().apply {
-                            level = HttpLoggingInterceptor.Level.BODY
-                        })
-                        .build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(baseUrl)
-                .build()
-                .create(service)!!
 
 val FirebaseDatabase.usersCollection
     get() =
