@@ -22,9 +22,10 @@ class ChatAdapter(val fragment: ChatFragment) : FirebaseAdapter<Chat, ChatViewHo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChatViewHolder(
             database = fragment.database,
+            storage = fragment.storage,
             view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_chat, parent, false),
-            single = viewType == TYPE_SINGLE)
+            full = viewType == TYPE_FULL)
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val item = getItem(position)
@@ -41,10 +42,8 @@ class ChatAdapter(val fragment: ChatFragment) : FirebaseAdapter<Chat, ChatViewHo
     }
 
     companion object {
-
         private const val TYPE_FULL = 0
         private const val TYPE_SINGLE = 1
-
     }
 
 }

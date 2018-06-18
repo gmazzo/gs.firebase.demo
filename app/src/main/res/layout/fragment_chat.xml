@@ -79,6 +79,14 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
+            <android.support.design.widget.FloatingActionButton
+                style="@style/Widget.FloatingActionButton.Transparent"
+                android:id="@+id/sendPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_photo"
+                android:tint="?android:textColorSecondaryInverse" />
+
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

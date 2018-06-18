@@ -34,7 +34,9 @@ class Application : DaggerApplication() {
                     .setDeveloperModeEnabled(BuildConfig.DEBUG)
                     .build())
 
-            setDefaults(mapOf(BuildConfig.TOGGLE_NUDGE_ENABLED to false))
+            setDefaults(mapOf(
+                    BuildConfig.TOGGLE_NUDGE_ENABLED to false,
+                    BuildConfig.TOGGLE_PHOTO_ENABLED to true))
 
             fetch().addOnCompleteListener { activateFetched() }
         }

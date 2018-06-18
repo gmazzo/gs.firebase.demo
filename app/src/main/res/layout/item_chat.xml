@@ -64,10 +64,29 @@
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@id/name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageMessage"
         app:layout_constraintStart_toEndOf="@id/guideline48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         tools:text="Hola buen día" />
+
+    <ImageView
+        android:id="@+id/imageMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:visibility="gone"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintTop_toBottomOf="@id/message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        tools:src="@drawable/ic_profile"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

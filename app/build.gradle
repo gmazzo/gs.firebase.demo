@@ -18,6 +18,7 @@ android {
         buildConfigField 'String', 'FIREBASE_AUTH_ENDPOINT', '\"https://fir-demo-16877.firebaseapp.com/__/auth/handler\"'
         buildConfigField 'String', 'GITHUB_CLIENT_ID', '\"f5fe2b2fff0f7f2cb40e\"'
         buildConfigField 'String', 'TOGGLE_NUDGE_ENABLED', '\"nudgeEnabled\"'
+        buildConfigField 'String', 'TOGGLE_PHOTO_ENABLED', '\"photoEnabled\"'
 
         fcmTopics.each {
             resValue "string", "fcm_topic_$it", it
@@ -57,6 +58,7 @@ dependencies {
     implementation "com.google.firebase:firebase-database:16.0.1"
     implementation "com.google.firebase:firebase-config:16.0.0"
     implementation "com.google.firebase:firebase-messaging:17.0.0"
+    implementation "com.google.firebase:firebase-storage:16.0.1"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.picasso:picasso:2.71828', {
         exclude group: 'com.android.support'

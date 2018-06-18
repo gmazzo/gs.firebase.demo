@@ -1,7 +1,10 @@
 package gs.firebase.demo
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.provider.MediaStore
 import android.support.annotation.IdRes
 import android.support.design.widget.TextInputLayout
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
@@ -16,6 +19,15 @@ import com.google.firebase.database.FirebaseDatabase
 import gs.firebase.demo.models.Chat
 import gs.firebase.demo.models.User
 import gs.firebase.demo.views.LoadingAdapterObserver
+
+fun createPickPhoto(title: CharSequence?, tmpTakenPhotoUri: Uri) =
+        Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }.let {
+            Intent.createChooser(it, title).apply {
+                putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                    putExtra(MediaStore.EXTRA_OUTPUT, tmpTakenPhotoUri)
+                }))
+            }
+        }!!
 
 fun View.ancestor(@IdRes withId: Int): View? =
         ancestor { it.id == withId }
@@ -37,7 +49,6 @@ fun ImageView.rounded() =
             })
         }
 
-
 val TextInputLayout.text: String?
     get() {
         val text = editText!!.text.toString()
@@ -58,9 +69,13 @@ fun RecyclerView.decorate() =
 fun RecyclerView.scrollDownOnInsert() {
     adapter.also {
         it.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                smoothScrollToPosition(positionStart)
+                handler.post {
+                    scrollBy(0, computeVerticalScrollRange())
+                }
             }
+
         })
     }
 }

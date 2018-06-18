@@ -5,8 +5,9 @@ data class Chat(var id: String? = null,
                 var userId: String? = null,
                 var user: User? = null,
                 var timestamp: Long? = null,
-                var message: String? = null) {
+                var message: String? = null,
+                var imageUrl: String? = null) {
 
-    enum class Type { MESSAGE, NUDGE }
+    enum class Type { MESSAGE, NUDGE, IMAGE }
 
 }
