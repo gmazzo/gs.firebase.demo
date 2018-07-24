@@ -7,6 +7,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -50,6 +51,10 @@ class ToolbarFragment : DaggerFragment(), FirebaseAuth.AuthStateListener, Target
 
         } else {
             toolbar.navigationIcon = null
+        }
+
+        if (user == null) {
+            LoginManager.getInstance().logOut()
         }
     }
 

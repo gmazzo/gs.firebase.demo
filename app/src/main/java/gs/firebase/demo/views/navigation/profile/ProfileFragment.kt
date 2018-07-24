@@ -60,12 +60,14 @@ class ProfileFragment : DaggerFragment(), FirebaseAuth.AuthStateListener, Callba
         snapshot.apply {
             if (exists()) {
                 toUser().also { user ->
-                    name.text = user.name
-                    email.text = user.email
+                    name.text = user.name ?: ""
+                    email.text = user.email ?: ""
 
-                    Picasso.get()
-                            .load(user.photoUrl)
-                            .into(photo, this@ProfileFragment)
+                    if (user.photoUrl != null) {
+                        Picasso.get()
+                                .load(user.photoUrl)
+                                .into(photo, this@ProfileFragment)
+                    }
                 }
 
             } else {

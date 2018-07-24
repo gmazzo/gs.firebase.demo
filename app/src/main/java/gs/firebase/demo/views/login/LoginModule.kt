@@ -15,7 +15,7 @@ interface LoginModule {
     @ContributesAndroidInjector
     fun provideGoogleLoginFragment(): GoogleLoginFragment
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [FacebookAuthModule::class])
     fun provideFacebookLoginFragment(): FacebookLoginFragment
 
     @ContributesAndroidInjector

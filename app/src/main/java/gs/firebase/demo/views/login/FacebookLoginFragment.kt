@@ -18,7 +18,9 @@ import kotlinx.android.synthetic.main.fragment_login_facebook.*
 import javax.inject.Inject
 
 class FacebookLoginFragment : DaggerFragment(), FacebookCallback<LoginResult> {
-    private val callbackManager = CallbackManager.Factory.create()!!
+
+    @Inject
+    lateinit var callbackManager: CallbackManager
 
     @Inject
     lateinit var auth: FirebaseAuth
